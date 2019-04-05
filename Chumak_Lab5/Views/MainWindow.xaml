@@ -1,0 +1,114 @@
+﻿<Window x:Class="Chumak_Lab5.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Chumak_Lab5"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="960" Width="1280">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30*"></ColumnDefinition>
+            <ColumnDefinition Width="20*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Column="0">
+            <DataGrid x:Name="ProcessesDataGrid"
+                      HorizontalGridLinesBrush="DarkBlue"
+                      Background="Transparent"
+                      CanUserSortColumns="True" IsReadOnly="True"
+                      AutoGenerateColumns="False" Foreground="#f9d335" FontSize="18" MaxColumnWidth="250"
+                      ItemsSource="{Binding ProcessesList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedProcess, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Open File Location" Command="{Binding OpenCommand}"/>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+                <DataGrid.RowBackground>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#1c0202" Offset="0.0" />
+                        <GradientStop Color="#730808" Offset="0.25" />
+                        <GradientStop Color="#390404" Offset="0.75" />
+                        <GradientStop Color="#1c0202" Offset="1.0" />
+                    </LinearGradientBrush>
+                </DataGrid.RowBackground>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" />
+                    <DataGridTextColumn Header="ID" Binding="{Binding Path=Id}" />
+                    <DataGridTextColumn Header="Active" Binding="{Binding Path=IsActive}" />
+                    <DataGridTextColumn Header="CPU usage" Binding="{Binding Path=Cpu}" />
+                    <DataGridTextColumn Header="Memory usage" Binding="{Binding Path=Memory}" />
+                    <DataGridTextColumn Header="Threads count" Binding="{Binding Path=ThreadsCount}" />
+                    <DataGridTextColumn Header="User" Binding="{Binding Path=User}" />
+                    <DataGridTextColumn Header="Path" Binding="{Binding Path=Path}" />
+                    <DataGridTextColumn Header="Activity date" Binding="{Binding Path=LaunchDateTime}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid Column="1">
+            <Grid.Background>
+                <LinearGradientBrush>
+                    <GradientStop Color="#1c0202" Offset="0.0" />
+                    <GradientStop Color="#730808" Offset="0.25" />
+                    <GradientStop Color="#390404" Offset="0.75" />
+                    <GradientStop Color="#1c0202" Offset="1.0" />
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"></RowDefinition>
+                <RowDefinition Height="3*"></RowDefinition>
+                <RowDefinition Height="20*"></RowDefinition>
+                <RowDefinition Height="3*"></RowDefinition>
+                <RowDefinition Height="20*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" Content="Kill Process" Margin="5" FontSize="16" 
+                    FontStyle="Italic" Foreground="#f9d335" FontWeight="UltraBold"
+                    VerticalAlignment="Center" Background="Black" 
+                    IsEnabled="{Binding IsItemSelected, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                    Command="{Binding EndTaskCommand}"></Button>
+            <Label Grid.Row="1" Content="Modules" HorizontalAlignment="Center" Foreground="#f9d335" FontSize="18" FontWeight="Bold"></Label>
+            <DataGrid Grid.Row="2" x:Name="Modules"
+                      HorizontalGridLinesBrush="DarkBlue"
+                      Background="Transparent"
+                      CanUserSortColumns="True" IsReadOnly="True"
+                      AutoGenerateColumns="False" Foreground="#f9d335" FontSize="18" MaxColumnWidth="250"
+                      ItemsSource="{Binding SelectedProcess.Modules, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedProcess, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
+                <DataGrid.RowBackground>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#1c0202" Offset="0.0" />
+                        <GradientStop Color="#730808" Offset="0.25" />
+                        <GradientStop Color="#390404" Offset="0.75" />
+                        <GradientStop Color="#1c0202" Offset="1.0" />
+                    </LinearGradientBrush>
+                </DataGrid.RowBackground>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Width="*" IsReadOnly="True" Binding="{Binding Name}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="File Path" Width="*" IsReadOnly="True" Binding="{Binding Path}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Label Grid.Row="3" Content="Threads" HorizontalAlignment="Center" Foreground="#f9d335" FontSize="18" FontWeight="Bold"></Label>
+            <DataGrid Grid.Row="4" x:Name="Threads"
+                      HorizontalGridLinesBrush="DarkBlue"
+                      Background="Transparent"
+                      CanUserSortColumns="True" IsReadOnly="True"
+                      AutoGenerateColumns="False" Foreground="#f9d335" FontSize="18" MaxColumnWidth="250"
+                      ItemsSource="{Binding SelectedProcess.Threads, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedProcess, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
+                <DataGrid.RowBackground>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#1c0202" Offset="0.0" />
+                        <GradientStop Color="#730808" Offset="0.25" />
+                        <GradientStop Color="#390404" Offset="0.75" />
+                        <GradientStop Color="#1c0202" Offset="1.0" />
+                    </LinearGradientBrush>
+                </DataGrid.RowBackground>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Width="*" IsReadOnly="True" Binding="{Binding Id}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="State" Width="2*" IsReadOnly="True" Binding="{Binding State}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Created On" Width="3*" IsReadOnly="True" Binding="{Binding LaunchDateTime}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Window>
