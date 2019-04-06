@@ -83,8 +83,8 @@ namespace Chumak_Lab5
 
     internal void RefreshModules()
     {
-        if (_modules == null)
-            _modules = new ObservableCollection<MyModule>();
+        // if (_modules == null)
+        _modules = new ObservableCollection<MyModule>();
         try
         {
             foreach (ProcessModule m in _process.Modules)
@@ -100,8 +100,8 @@ namespace Chumak_Lab5
 
     internal void RefreshThreads()
     {
-        if (_threads == null)
-            _threads = new ObservableCollection<MyThread>();
+        //if (_threads == null)
+        _threads = new ObservableCollection<MyThread>();
         try
         {
             foreach (ProcessThread t in _process.Threads)
